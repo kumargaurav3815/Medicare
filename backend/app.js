@@ -32,6 +32,28 @@ dbConnection();
 // Routes
 app.use("/api/v1/user", userRouter);
 
+// Route for getting appointments
+app.get("/api/v1/appointments", async (req, res) => {
+  try {
+    const appointments = await Appointment.find();
+    res.status(200).json(appointments);
+  } catch (error) {
+    console.error("Error fetching appointments:", error);
+    res.status(500).json({ error: "Failed to fetch appointments" });
+  }
+});
+
+// Route for getting consultations
+app.get("/api/v1/consultations", async (req, res) => {
+  try {
+    const consultations = await Consultation.find();
+    res.status(200).json(consultations);
+  } catch (error) {
+    console.error("Error fetching consultations:", error);
+    res.status(500).json({ error: "Failed to fetch consultations" });
+  }
+});
+
 //Route for request password reset
 app.post("/api/v1/reset-password", async (req, res) => {
   const { email } = req.body;
